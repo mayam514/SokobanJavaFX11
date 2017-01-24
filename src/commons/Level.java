@@ -20,6 +20,7 @@ public class Level implements Serializable{
 	private int _height;
 	private ArrayList<ArrayList<Item>> _items;
 	private ArrayList<Character> _characters;
+	private boolean _isWinner;
 	
 	//Constructor
 	public Level() {
@@ -32,6 +33,7 @@ public class Level implements Serializable{
 		this._height = 0;
 		this._items=new ArrayList<ArrayList<Item>>();
 		this._characters=new ArrayList<Character>();
+		this._isWinner = false;
 	}
 
 	
@@ -107,6 +109,15 @@ public class Level implements Serializable{
 	public void set_characters(ArrayList<Character> _characters) {
 		this._characters = _characters;
 	}
+	
+	public boolean _isWinner() {
+		return _isWinner;
+	}
+
+
+	public void set_isWinner(boolean _isWinner) {
+		this._isWinner = _isWinner;
+	}
 
 
 	/**
@@ -174,4 +185,5 @@ public class Level implements Serializable{
 		}
 		return str;
 	}
+
 }
