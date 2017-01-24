@@ -23,7 +23,7 @@ public class MoveCommand extends Command {
 		String direction = this._params.get(0);
 		this._model.moveCharacter(direction, character);
 		if(this._model.getLevel()._isWinner()){
-			this._view.displayMessage("congratulations!!! you won the game :)");
+			this._view.displayMessage("CONGRATULATIONS!!! You won the game :)");
 		}
 	}
 
