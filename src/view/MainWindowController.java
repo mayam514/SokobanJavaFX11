@@ -8,11 +8,11 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 import commons.Level;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -145,10 +145,13 @@ public class MainWindowController extends Observable implements Initializable, I
 
 	@Override
 	public void displayMessage(String msg) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText(null);
-		alert.setContentText(msg);
-
-		alert.showAndWait();
+		Platform.runLater(new Runnable() {
+		      public void run() {
+		          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		          alert.setHeaderText(null);
+		          alert.setContentText(msg);
+		          alert.showAndWait();
+		      }
+		    });
 	}
 }

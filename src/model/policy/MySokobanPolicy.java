@@ -52,5 +52,5 @@ public abstract class MySokobanPolicy {
 	 * @param level the level that we play
 	 * @return if we won the game
 	 */
-	public abstract boolean isWinner(Level level);
+	public abstract void isWinner(Level level);
 }

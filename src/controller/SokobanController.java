@@ -37,7 +37,7 @@ public class SokobanController implements Observer {
 	 */
 	private void initCommands(){
 		this._commands = new HashMap<String, Command>();
-		MoveCommand move = new MoveCommand(this._model);
+		MoveCommand move = new MoveCommand(this._model, this._view);
 		LoadLevelCommand load = new LoadLevelCommand(this._model);
 		this._commands.put("Move", move);
 		this._commands.put("Display", new DisplayLevelCommand(this._model, this._view));
@@ -56,7 +56,6 @@ public class SokobanController implements Observer {
 		}
 		Command c = this._commands.get(commandKey);
 		if (c == null) {
-			System.out.println("aaa");
 			this._view.displayMessage("Command not found");
 			return;
 		}

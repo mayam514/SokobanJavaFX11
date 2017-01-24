@@ -72,7 +72,6 @@ public class MoveItemPolicy1 extends MoveItem{
 				this.get_policy().isWinner(level);//Check if the user won the game
 			}
 		}
-		System.out.println("in move item");
 		return level;
 	}
 
