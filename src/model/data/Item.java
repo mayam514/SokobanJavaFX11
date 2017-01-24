@@ -2,7 +2,9 @@ package model.data;
 
 import java.io.Serializable;
 
-public class Item implements Serializable{
+import javafx.scene.canvas.GraphicsContext;
+
+public abstract class Item implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	//Data members
@@ -10,7 +12,7 @@ public class Item implements Serializable{
 	private boolean _isFreeSpace;//Only final position and floor will get T value
 	private boolean _isMoveable;//Only items that can be moved (only box)
 	private boolean _isItemOnFinalPosition;
-
+	
 	//Constructors
 	public Item() {
 		this._position = new Position();
@@ -60,5 +62,15 @@ public class Item implements Serializable{
 	public void set_isItemOnFinalPosition(boolean _isItemOnFinalPosition) {
 		this._isItemOnFinalPosition = _isItemOnFinalPosition;
 	}
+	
+
+	/**
+	 * The method draws an item
+	 * @param gc draws to canvas
+	 * @param p the position we want to draw in it 
+	 * @param cellWidth the width of the cell we want to draw
+	 * @param cellHeight the height of the cell we want to draw
+	 */
+	public abstract void draw(GraphicsContext gc, Position p, double cellWidth, double cellHeight);
 
 }
