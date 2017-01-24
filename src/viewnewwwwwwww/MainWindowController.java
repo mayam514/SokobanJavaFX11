@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 public class MainWindowController implements Initializable{
-	int[][] mazeData = {
+	int[][] sokobanData = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},			
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},			
 			{1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1},			
@@ -31,7 +31,7 @@ public class MainWindowController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		sokobanDisplayer.setSokobanData(mazeData);
+		sokobanDisplayer.setSokobanData(sokobanData);
 		
 		sokobanDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED, (e)->sokobanDisplayer.requestFocus());//Asks that the focus will be on sokobanDisplayer
 		
