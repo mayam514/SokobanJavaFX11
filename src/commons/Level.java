@@ -152,7 +152,7 @@ public class Level implements Serializable{
 	 * @return the item that is in the position
 	 */
 	public Item getItemFromArrayByPosition(Position p){
-		if(p.getP_x() < 0 || p.getP_y() < 0 || p.getP_x() > this._width || p.getP_y() > this._height){//If the position is out of the boundaries
+		if(p.getP_x() < 0 || p.getP_y() < 0 || p.getP_x() >= this._width || p.getP_y() >= this._height){//If the position is out of the boundaries
 			return null;
 		}
 		return this._items.get(p.getP_y()).get(p.getP_x());
