@@ -13,19 +13,24 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.data.Item;
 
 public class MainWindowController extends Observable implements Initializable, IView{
-	//Data member
+	//Data members
 	ArrayList<ArrayList<Item>> _sokobanData;
-	
+	int _numOfMoves = 0;
 	@FXML
 	SokobanDisplayer _sokobanDisplayer;
+	@FXML
+	Label _numOfMovesLabel;
 	
 	/**
 	 * The method activates the game 
@@ -39,6 +44,10 @@ public class MainWindowController extends Observable implements Initializable, I
 		
 		this.setChanged();
 		this.notifyObservers(params);
+		String ssound = "resources/song.mp3";
+		Media sound = new Media(new File(ssound).toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.play();
 	}
 	
 	/**
@@ -111,21 +120,34 @@ public class MainWindowController extends Observable implements Initializable, I
 			@Override
 			public void handle(KeyEvent event) {
 				String direction = "";
+				String str = "";
 				
 				if(event.getCode() == KeyCode.UP){
 					direction = "Up";
+					_numOfMoves++;
+					str = String.valueOf(_numOfMoves);
+					_numOfMovesLabel.setText("Number Of Moves: " + str);
 				}
 				
 				if(event.getCode() == KeyCode.DOWN){
 					direction = "Down";
+					_numOfMoves++;
+					str = String.valueOf(_numOfMoves);
+					_numOfMovesLabel.setText("Number Of Moves: " + str);
 				}
 				
 				if(event.getCode() == KeyCode.RIGHT){
 					direction = "Right";
+					_numOfMoves++;
+					str = String.valueOf(_numOfMoves);
+					_numOfMovesLabel.setText("Number Of Moves: " + str);
 				}
 				
 				if(event.getCode() == KeyCode.LEFT){
 					direction = "Left";
+					_numOfMoves++;
+					str = String.valueOf(_numOfMoves);
+					_numOfMovesLabel.setText("Number Of Moves: " + str);
 				}
 				String command = "Move";
 				LinkedList<String> params = new LinkedList<String>();
