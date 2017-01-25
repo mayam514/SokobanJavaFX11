@@ -8,7 +8,7 @@ import model.data.Item;
 import model.data.Position;
 
 public class SokobanDisplayer extends Canvas{
-	ArrayList<ArrayList<Item>> _sokobanData;//im tazin li maarah du meimadi shel intim, ani eda lehazig et ze betor mavoh
+	ArrayList<ArrayList<Item>> _sokobanData;
 	int cCol, cRow;//character place
 	
 	public SokobanDisplayer() {
@@ -41,10 +41,16 @@ public class SokobanDisplayer extends Canvas{
 	
 	public void redraw(){//I will want to activate it everytime that something changed
 		if(_sokobanData != null){
-			//get the canvas dimentions
+			//Get the canvas dimentions
 			double W = getWidth();
 			double H = getHeight();
-			double w = W / _sokobanData.size();
+			int max = 0;
+			for(int i=0; i<_sokobanData.size();i++){//Get the maximum width of the level
+				if(_sokobanData.get(i).size() > max){
+					max = _sokobanData.get(i).size();
+				}
+			}
+			double w = W / max;
 			double h = H / _sokobanData.size();
 			
 			GraphicsContext gc = getGraphicsContext2D();
