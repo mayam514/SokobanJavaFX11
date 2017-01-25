@@ -45,7 +45,7 @@ public class MyTextLevelLoader implements ILevelLoader{
 						}
 						
 						if(x > myLevel.get_width()){//Update level width
-							myLevel.set_width(x);
+							myLevel.set_width(x+1);
 						}
 					}
 					x = 0;//Initiate width for the new line
