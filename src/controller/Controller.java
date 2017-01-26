@@ -61,4 +61,3 @@ public class Controller{
 		this._isExit = true;
 	}
 }
-
