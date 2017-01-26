@@ -22,8 +22,8 @@ public class MoveCommand extends Command {
 		Character character = this._model.getLevel().get_characters().get(0);
 		String direction = this._params.get(0);
 		this._model.moveCharacter(direction, character);
-		if(this._model.getLevel()._isWinner()){
-			this._view.displayMessage("CONGRATULATIONS!!! You won the game :)");
+		if(this._model.getLevel()._isWinner()){//Checks if the user won the game
+			this._view.displayMessage("CONGRATULATIONS!!! You won the game :)");//announce winning
 		}
 	}
 

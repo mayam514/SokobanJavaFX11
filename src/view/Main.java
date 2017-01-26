@@ -1,6 +1,8 @@
 package view;
 	
 import controller.SokobanController;
+import controller.server.HandleOneClient;
+import controller.server.MyServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -35,13 +37,21 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			init(view);
-			
+			primaryStage.setOnCloseRequest(e -> view.close());
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	public static void main(String[] args) {
+		if(args[0].equals("-server")){
+			HandleOneClient h = new HandleOneClient();
+			MyServer S =new MyServer(40305, h);
+			S.start();
+		}
+		
 		launch(args);
 	}
 }

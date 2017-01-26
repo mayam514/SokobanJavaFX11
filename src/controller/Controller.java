@@ -43,8 +43,8 @@ public class Controller{
 						System.out.println("debug: "+cmd.getClass());
 						//The command can be null if the time passed until got input
 						if (cmd != null){
-							System.out.println("\t is executing");
 							cmd.execute();//activates the command
+							System.out.println("\t is executing");
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -52,6 +52,7 @@ public class Controller{
 				}
 			}
 		});
+		thread.setName("Controller Thread");
 		thread.start();
 	}
 	
