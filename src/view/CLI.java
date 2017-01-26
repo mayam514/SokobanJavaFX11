@@ -7,14 +7,14 @@ import java.util.LinkedList;
 import java.util.Observable;
 import commons.Level;
 
-public class CLInew extends Observable implements IView {
+public class CLI extends Observable implements IView {
 	//Data members
 	private BufferedReader _reader;
 	private PrintWriter _writer;
 	private String _exitString;
 	
 	//Constructor
-	public CLInew(BufferedReader reader, PrintWriter writer, String exitString) {
+	public CLI(BufferedReader reader, PrintWriter writer, String exitString) {
 		this._reader = reader;
 		this._writer = writer;
 		this._exitString = exitString;
