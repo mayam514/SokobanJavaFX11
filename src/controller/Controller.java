@@ -40,11 +40,9 @@ public class Controller{
 				while (!_isExit) {
 					try {
 						Command cmd = _commandsQueue.take();//takes the first command in the commands queue
-						System.out.println("debug: "+cmd.getClass());
 						//The command can be null if the time passed until got input
 						if (cmd != null){
 							cmd.execute();//activates the command
-							System.out.println("\t is executing");
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();

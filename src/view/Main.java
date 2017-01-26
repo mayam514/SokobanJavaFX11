@@ -13,8 +13,8 @@ import model.SokobanModel;
 
 public class Main extends Application {
 	/**
-	 * 
-	 * @param view
+	 * The method initiates the MainWindowController
+	 * @param view the MainWindowController we want to initiate
 	 */
 	private void init(MainWindowController view) {
 		SokobanModel model = new SokobanModel();
@@ -25,10 +25,10 @@ public class Main extends Application {
 		view.start();	
 	}
 	
+	//The method starts the GUI
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
 			BorderPane root = (BorderPane)loader.load();	
 			MainWindowController view = loader.getController();
@@ -37,7 +37,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			init(view);
-			primaryStage.setOnCloseRequest(e -> view.close());
+			primaryStage.setOnCloseRequest(e -> view.close());//Defines the functionality that happens when we press the exit button(x)
 			primaryStage.show();
 			
 		} catch(Exception e) {
@@ -46,12 +46,14 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		//Launch the server
 		if(args[0].equals("-server")){
 			HandleOneClient h = new HandleOneClient();
 			MyServer S =new MyServer(40305, h);
 			S.start();
 		}
 		
+		//Launch the GUI
 		launch(args);
 	}
 }

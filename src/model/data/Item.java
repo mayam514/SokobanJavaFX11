@@ -5,9 +5,8 @@ import java.io.Serializable;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Item implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
 	//Data members
+	private static final long serialVersionUID = 1L;
 	private Position _position;
 	private boolean _isFreeSpace;//Only final position and floor will get T value
 	private boolean _isMoveable;//Only items that can be moved (only box)
@@ -63,7 +62,6 @@ public abstract class Item implements Serializable{
 		this._isItemOnFinalPosition = _isItemOnFinalPosition;
 	}
 	
-
 	/**
 	 * The method draws an item
 	 * @param gc draws to canvas

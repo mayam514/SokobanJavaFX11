@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Character extends Item{
-
+	//Data members
 	private static final long serialVersionUID = 1L;
 	private Image _image;
 

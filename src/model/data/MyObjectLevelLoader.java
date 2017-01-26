@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import commons.Level;
 
 public class MyObjectLevelLoader implements ILevelLoader {
-	
+	//Constructor
 	public MyObjectLevelLoader() {
 		
 	}

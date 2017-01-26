@@ -34,7 +34,7 @@ public class SaveLevelCommand extends Command {
 		_saversMap.put("xml", new MyXMLLevelSaver());
 	}
 	
-	//Override method
+	
 	@Override
 	public void execute(){
 		String typeOfFile = FilenameUtils.getExtension(this._params.get(0));//Get the .txt/.obj/.xml from the filename that the user typed

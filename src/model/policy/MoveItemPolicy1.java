@@ -66,6 +66,7 @@ public class MoveItemPolicy1 extends MoveItem{
 		Item i = level.getItemFromArrayByPosition(p1);
 		Position p2 = new Position(character.get_position().getP_x()+2, character.get_position().getP_y());//The position on the right of i
 		Item i1 = level.getItemFromArrayByPosition(p2);
+		
 		if(i1!=null){//i must be in the _items array(not null), but i1 might not
 			if(this.moveCharacter(level, character, i, i1)){//If the character can move right
 				level.setLevel_numOfMoves(level.getLevel_numOfMoves()+1);//Increase numOfMoves by one

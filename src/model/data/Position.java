@@ -3,9 +3,8 @@ package model.data;
 import java.io.Serializable;
 
 public class Position implements Serializable{
-
-	private static final long serialVersionUID = 1L;
 	//Data members
+	private static final long serialVersionUID = 1L;
 	private int p_x;
 	private int p_y;
 	

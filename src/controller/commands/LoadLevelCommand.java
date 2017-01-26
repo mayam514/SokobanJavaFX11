@@ -40,7 +40,6 @@ public class LoadLevelCommand extends Command {
 	//Override method
 	@Override
 	public void execute(){
-		System.out.println("path: "+this._params.get(0));
 		String typeOfFile = FilenameUtils.getExtension(this._params.get(0));//Get the .txt/.obj/.xml from the filename that the user typed
 		ILevelLoader loader = _loadersMap.get(typeOfFile);//Get the type of loader the user typed
 		InputStream fileInputStream = null;

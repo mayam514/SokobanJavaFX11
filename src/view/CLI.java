@@ -32,6 +32,7 @@ public class CLI extends Observable implements IView {
 		this._writer.flush();
 	}
 
+	//The method starts the CLI
 	@Override
 	public void start() {
 		new Thread(new Runnable() {
