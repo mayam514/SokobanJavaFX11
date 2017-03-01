@@ -12,6 +12,7 @@ import controller.commands.ExitCommand;
 import controller.commands.LoadLevelCommand;
 import controller.commands.MoveCommand;
 import controller.commands.SaveLevelCommand;
+import controller.server.MyServer;
 import model.IModel;
 import view.IView;
 
@@ -20,11 +21,23 @@ public class SokobanController implements Observer {
 	private IModel _model;
 	private IView _view;
 	private Controller _controller;
+	private MyServer _server;
 	private Map<String, Command> _commands;
 	
 	//Constructor
 	public SokobanController(IModel model, IView view) {
 		this._model = model;
+		this._view = view;
+		
+		this._controller = new Controller();
+		this._controller.start();
+		
+		this.initCommands();
+	}
+	
+	public SokobanController(IModel model, IView view, MyServer server) {
+		this._model = model;
+		this._server = server;
 		this._view = view;
 		
 		this._controller = new Controller();

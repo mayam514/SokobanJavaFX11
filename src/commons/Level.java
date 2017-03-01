@@ -36,7 +36,6 @@ public class Level implements Serializable{
 		this._isWinner = false;
 	}
 
-	
 	//Get and set methods
 	public int get_number() {
 		return _levelNumber;

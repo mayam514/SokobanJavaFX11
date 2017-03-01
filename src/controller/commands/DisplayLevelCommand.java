@@ -17,7 +17,7 @@ public class DisplayLevelCommand extends Command {
 	
 	@Override
 	public void execute() {
-		Level level = this._model.getLevel();	
+		Level level = this._model.getLevel();
 		this._view.display(level);
 	}
 }
