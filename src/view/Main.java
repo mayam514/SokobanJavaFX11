@@ -1,8 +1,6 @@
 package view;
 	
 import controller.SokobanController;
-import controller.server.HandleOneClient;
-import controller.server.MyServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -47,11 +45,11 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		//Launch the server
-		if(args[0].equals("-server")){
+		/*if(args[0].equals("-server")){
 			HandleOneClient h = new HandleOneClient();
 			MyServer S =new MyServer(40305, h);
 			S.start();
-		}
+		}*/
 		
 		//Launch the GUI
 		launch(args);

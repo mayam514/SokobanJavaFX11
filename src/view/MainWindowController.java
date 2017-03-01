@@ -94,6 +94,12 @@ public class MainWindowController extends Observable implements Initializable, I
 
 			this.setChanged();
 			this.notifyObservers(params);
+			
+			String command1 = "Display";
+			LinkedList<String> params1 = new LinkedList<String>();
+			params1.add(command1);
+			this.setChanged();
+			this.notifyObservers(params1);
 		}
 	}
 
