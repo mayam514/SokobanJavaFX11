@@ -9,9 +9,10 @@ import model.data.Position;
 
 
 public class Level implements Serializable{
-	private static final long serialVersionUID = 1L;
 	//Data members
+	private static final long serialVersionUID = 1L;
 	private int _levelNumber;
+	private String _levelName;
 	private double _score;
 	private int _numOfMoves;
 	private int _numOfFinalPositions;
@@ -25,6 +26,7 @@ public class Level implements Serializable{
 	//Constructor
 	public Level() {
 		this._levelNumber = 1;
+		this._levelName = "";
 		this._score = 0;
 		this._numOfMoves = 0;
 		this._numOfFinalPositions = 0;
@@ -43,6 +45,14 @@ public class Level implements Serializable{
 	
 	public void set_number(int level_number) {
 		this._levelNumber = level_number;
+	}
+	
+	public String get_name() {
+		return _levelName;
+	}
+
+	public void set_name(String _levelName) {
+		this._levelName = new String(_levelName);
 	}
 
 	public double get_score() {
@@ -184,4 +194,5 @@ public class Level implements Serializable{
 		return str;
 	}
 
+	
 }

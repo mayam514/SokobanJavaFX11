@@ -3,6 +3,8 @@ package controller.commands;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import org.apache.commons.io.FilenameUtils;
@@ -40,6 +42,9 @@ public class LoadLevelCommand extends Command {
 	//Override method
 	@Override
 	public void execute(){
+		Path p = Paths.get(this._params.get(0));
+		String fileNameWithExtentions = p.getFileName().toString();
+		String[] fileName = fileNameWithExtentions.split("[.]");
 		String typeOfFile = FilenameUtils.getExtension(this._params.get(0));//Get the .txt/.obj/.xml from the filename that the user typed
 		ILevelLoader loader = _loadersMap.get(typeOfFile);//Get the type of loader the user typed
 		InputStream fileInputStream = null;
@@ -49,5 +54,6 @@ public class LoadLevelCommand extends Command {
 			e.printStackTrace();
 		}
 		this._model.setLevel(loader.loadLevel(fileInputStream));
+		this._model.getLevel().set_name(fileName[0]);
 	}
 }
