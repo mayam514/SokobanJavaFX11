@@ -75,7 +75,7 @@ public class Main extends Application {
 		SokobanDbManager manager = new SokobanDbManager();
 		Player p = new Player("Moshe", 5, 100);
 		manager.addPlayer(p);
-		launch(args);
+		//launch(args);
 		
 	}
 }

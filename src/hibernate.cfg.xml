@@ -1,3 +1,7 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+      "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+      "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >
+
 <hibernate-configuration>
 	<session-factory>
 
@@ -5,20 +9,20 @@
 		<property name="connection.driver_class">
 			com.microsoft.sqlserver.jdbc.SQLServerDriver
 		</property>
-		
+
 		<property name="connection.url">jdbc:sqlserver://localhost:1433;database=SokobanDb;integratedSecurity=true;</property>
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
 
 		<!-- SQL dialect -->
-		<property name="dialect">org.hibernate.dialect.SQLServer2012Dialect
-		</property>
+		 <!--<property name="dialect">org.hibernate.dialect.SQLServer2012Dialect
+		</property>-->
 
 		<!-- Echo all executed SQL to stdout -->
 		<property name="show_sql">true</property>
 
-		<mapping class="db.Players"></mapping>
-		<mapping class="db.Levels"></mapping>
+		<mapping class="commons.Player"></mapping>
+		<mapping class="commons.Level"></mapping>
 	</session-factory>
-</hibernate-configuration> 
+</hibernate-configuration>

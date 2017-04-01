@@ -3,6 +3,9 @@ package commons;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 import model.data.Character;
 import model.data.Item;
 import model.data.Position;
@@ -12,7 +15,11 @@ public class Level implements Serializable{
 	//Data members
 	private static final long serialVersionUID = 1L;
 	private int _levelNumber;
+	
+	@Column(name="Name")
+	@Id
 	private String _levelName;
+	
 	private double _score;
 	private int _numOfMoves;
 	private int _numOfFinalPositions;

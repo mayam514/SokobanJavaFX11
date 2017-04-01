@@ -8,21 +8,29 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import commons.Player;
 
 public class SokobanDbManager {
 	//Data member
-	private SessionFactory factory;
+	private static SessionFactory sessionFactory;
 
 	//Constructor
 	public SokobanDbManager() {
-		Logger.getLogger("org.hibernate").setLevel(Level.SEVERE); 
-		Configuration config = new Configuration();
-		config.configure();
-		factory = config.buildSessionFactory();
+		createSessionFactory();
 	}
+	
+	public static void createSessionFactory() {
+	    Configuration configuration = new Configuration();
+	    configuration.configure();
 
+	    ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+	            configuration.getProperties()). buildServiceRegistry();
+	    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	}
+	
 	/**
 	 * The method adds a new player to the database
 	 * @param p the player that we want to add to the database
@@ -32,7 +40,7 @@ public class SokobanDbManager {
 		Transaction tx = null;
 
 		try {
-			session = factory.openSession();
+			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			session.save(p);
 			tx.commit();
@@ -54,7 +62,7 @@ public class SokobanDbManager {
 		Transaction tx = null;
 
 		try {
-			session = factory.openSession();
+			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			session.save(l);
 			tx.commit();

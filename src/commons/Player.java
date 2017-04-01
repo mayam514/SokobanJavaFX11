@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity(name="Players")
 public class Player implements Serializable {
@@ -11,6 +12,7 @@ public class Player implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name="Name")
+	@Id
 	private String _playerName;
 	
 	@Column(name="NumOfMoves")
