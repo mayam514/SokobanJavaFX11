@@ -4,35 +4,48 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import model.data.Character;
 import model.data.Item;
 import model.data.Position;
 
-
+@Entity(name="Levels")
 public class Level implements Serializable{
 	//Data members
 	private static final long serialVersionUID = 1L;
+	@Transient
 	private int _levelNumber;
 	
 	@Column(name="Name")
 	@Id
 	private String _levelName;
 	
+	@Transient
 	private double _score;
+	@Transient
 	private int _numOfMoves;
+	@Transient
 	private int _numOfFinalPositions;
+	@Transient
 	private int _numOfBoxesOnFinalPositions;
+	@Transient
 	private int _width;
+	@Transient
 	private int _height;
+	@Transient
 	private ArrayList<ArrayList<Item>> _items;
+	@Transient
 	private ArrayList<Character> _characters;
+	@Transient
 	private boolean _isWinner;
+	@Transient
 	private long _startTime;
+	@Transient
 	private long _finishTime;
-	private ArrayList<Player> _players;
-	
+
 	//Constructor
 	public Level() {
 		this._levelNumber = 1;
@@ -48,7 +61,10 @@ public class Level implements Serializable{
 		this._isWinner = false;
 		this._startTime = 0;
 		this._finishTime = 0;
-		this._players = new ArrayList<Player>();
+	}
+	
+	public Level(String name){
+		this._levelName = new String(name);
 	}
 
 	//Get and set methods
@@ -155,18 +171,6 @@ public class Level implements Serializable{
 
 	public void set_isWinner(boolean _isWinner) {
 		this._isWinner = _isWinner;
-	}
-	
-	public ArrayList<Player> get_players() {
-		return _players;
-	}
-
-	/**
-	 * The method adds a new player to the level's players array list
-	 * @param p the player that we want to add to the list
-	 */
-	public void addNewPlayer(Player p){
-		this._players.add(p);
 	}
 	
 	/**
