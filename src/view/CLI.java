@@ -59,5 +59,11 @@ public class CLI extends Observable implements IView {
 			}
 		}).start();	
 	}
+
+	@Override
+	public void getInput() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

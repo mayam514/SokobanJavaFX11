@@ -9,23 +9,15 @@ import java.util.ResourceBundle;
 
 import commons.Level;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -206,25 +198,12 @@ public class MainWindowController extends Observable implements Initializable, I
 				alert.showAndWait();
 			}
 		});
+		
 	}
 
 	@Override
 	public void getInput() {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		TextField textField = new TextField();
-		textField.setPromptText("Some text");
-		GridPane.setMargin(textField, new Insets(50, 50, 10, 50));
-		//gridPane.add(textField, 0, 0);
-		Button button = new Button("Button");       
-		GridPane.setMargin(button , new Insets(0, 50, 0, 50));
-		//gridPane.add(button , 0, 1);
-		button.setOnAction(new EventHandler<ActionEvent>() {
-
-		    @Override
-		    public void handle(ActionEvent event) {
-		        String text = textField.getText();                              
-		    }
-		});
+		System.out.println("Please enter your name: ");
 	}
 
 }

@@ -1,30 +1,41 @@
 package commons;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity(name="Players")
 public class Player implements Serializable {
 	//Data members
 	private static final long serialVersionUID = 1L;
-	private String _playerName;
-	private ArrayList<Integer> _numOfMoves;
-	private ArrayList<Long> _gameDuration;
 	
-	//Constructor
+	@Column(name="Name")
+	private String _playerName;
+	
+	@Column(name="NumOfMoves")
+	private int _numOfMoves;
+	
+	@Column(name="Time")
+	private long _gameDuration;
+	
+	//Constructors
 	public Player() {
 		this._playerName = "";
-		this._numOfMoves = new ArrayList<Integer>();
-		this._gameDuration = new ArrayList<Long>();
+		this._numOfMoves = 0;
+		this._gameDuration = 0;
 	}
 
 	public Player(String playerName, int numOfMoves, long gameDuration) {
 		this._playerName = playerName;
-		this._numOfMoves = new ArrayList<Integer>();
-		this._numOfMoves.add(numOfMoves);
-		this._gameDuration = new ArrayList<Long>();
-		this._gameDuration.add(gameDuration);
+		this._numOfMoves = numOfMoves;
+		this._gameDuration = gameDuration;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Player [_playerName=" + _playerName + ", _numOfMoves=" + _numOfMoves + ", _gameDuration="
+				+ _gameDuration + "]";
+	}
 	
 }
