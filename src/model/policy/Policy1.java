@@ -55,6 +55,8 @@ public class Policy1 extends MySokobanPolicy{
 	@Override
 	public void isWinner(Level level) {
 		if(level.get_numOfBoxesOnFinalPositions()==level.get_numOfFinalPositions()){
+			level.set_finishTime();
+			
 			level.set_isWinner(true);
 		}
 	}

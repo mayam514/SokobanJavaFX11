@@ -22,6 +22,9 @@ public class Level implements Serializable{
 	private ArrayList<ArrayList<Item>> _items;
 	private ArrayList<Character> _characters;
 	private boolean _isWinner;
+	private long _startTime;
+	private long _finishTime;
+	private ArrayList<Player> _players;
 	
 	//Constructor
 	public Level() {
@@ -36,6 +39,9 @@ public class Level implements Serializable{
 		this._items=new ArrayList<ArrayList<Item>>();
 		this._characters=new ArrayList<Character>();
 		this._isWinner = false;
+		this._startTime = 0;
+		this._finishTime = 0;
+		this._players = new ArrayList<Player>();
 	}
 
 	//Get and set methods
@@ -54,7 +60,7 @@ public class Level implements Serializable{
 	public void set_name(String _levelName) {
 		this._levelName = new String(_levelName);
 	}
-
+	
 	public double get_score() {
 		return _score;
 	}
@@ -67,6 +73,23 @@ public class Level implements Serializable{
 		return _numOfMoves;
 	}
 
+	public long get_finishTime(){
+		return _finishTime;
+	}
+	
+	public void set_finishTime(){
+		long currentTime = System.currentTimeMillis();
+		this._finishTime = currentTime - this._startTime;
+	}
+	
+	public long get_startTime(){
+		return _startTime;
+	}
+	
+	public void set_startTime(){
+		this._startTime = System.currentTimeMillis();
+	}
+	
 	public void setLevel_numOfMoves(int level_numOfMoves) {
 		this._numOfMoves = level_numOfMoves;
 	}
@@ -126,8 +149,19 @@ public class Level implements Serializable{
 	public void set_isWinner(boolean _isWinner) {
 		this._isWinner = _isWinner;
 	}
+	
+	public ArrayList<Player> get_players() {
+		return _players;
+	}
 
-
+	/**
+	 * The method adds a new player to the level's players array list
+	 * @param p the player that we want to add to the list
+	 */
+	public void addNewPlayer(Player p){
+		this._players.add(p);
+	}
+	
 	/**
 	 * The method initiates an item in the items array
 	 * @param item the item that we want to initiate in the items array
@@ -195,4 +229,5 @@ public class Level implements Serializable{
 	}
 
 	
+
 }

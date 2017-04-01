@@ -55,5 +55,6 @@ public class LoadLevelCommand extends Command {
 		}
 		this._model.setLevel(loader.loadLevel(fileInputStream));
 		this._model.getLevel().set_name(fileName[0]);
+		this._model.getLevel().set_startTime();
 	}
 }

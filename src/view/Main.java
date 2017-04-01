@@ -1,11 +1,7 @@
 package view;
 	
-import java.util.List;
-
 import controller.Controller;
 import controller.SokobanController;
-import controller.server.HandleOneClient;
-import controller.server.MyServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
