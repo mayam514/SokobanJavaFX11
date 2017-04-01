@@ -16,11 +16,6 @@ public interface IView {
 	public void displayMessage(String msg);
 	
 	/**
-	 * The method gets input from user
-	 */
-	public void getInput();
-	
-	/**
 	 * The method starts the class that implements IView
 	 */
 	void start();

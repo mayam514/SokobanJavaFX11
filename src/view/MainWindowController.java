@@ -5,16 +5,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Observable;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import commons.Level;
+import commons.Player;
+import db.SokobanDbManager;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -34,6 +36,9 @@ public class MainWindowController extends Observable implements Initializable, I
 	Label _numOfMovesLabel;
 	@FXML
 	private javafx.scene.control.Button closeButton;
+
+	long _time = 0;
+	SokobanDbManager manager = new SokobanDbManager();
 
 	/**
 	 * The method activates the game
@@ -73,8 +78,7 @@ public class MainWindowController extends Observable implements Initializable, I
 	public void load() {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Load level");
-		fc.setInitialDirectory(new File("./resources"));// The first directory
-														// that opens
+		fc.setInitialDirectory(new File("./resources"));// The first directory that opens
 		// Shows only XML, text and object files
 		fc.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
 				new ExtensionFilter("Oblect Files", "*.obj"), new ExtensionFilter("XML Files", "*.xml"));
@@ -108,17 +112,8 @@ public class MainWindowController extends Observable implements Initializable, I
 	public void save() {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Save level");
-		fc.setInitialDirectory(new File("./resources"));// The first directory
-														// that opens
-		File chosen = fc.showSaveDialog(this._sokobanDisplayer.getScene().getWindow());// Get
-																						// the
-																						// chosen
-																						// path
-																						// from
-																						// the
-																						// user
-																						// to
-																						// save
+		fc.setInitialDirectory(new File("./resources"));// The first directory that opens
+		File chosen = fc.showSaveDialog(this._sokobanDisplayer.getScene().getWindow());// Get the chosen path from the user to save
 		if (chosen != null) {
 			// Insert save command
 			String command = "Save ";
@@ -138,18 +133,8 @@ public class MainWindowController extends Observable implements Initializable, I
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this._sokobanDisplayer.setSokobanData(this._sokobanData);
-		this._sokobanDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> _sokobanDisplayer.requestFocus());// Asks
-																													// that
-																													// the
-																													// focus
-																													// will
-																													// be
-																													// on
-																													// _sokobanDisplayer
-		this._sokobanDisplayer.setOnKeyPressed(new EventHandler<KeyEvent>() {// Listens
-																				// to
-																				// keypressed
-																				// event
+		this._sokobanDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> _sokobanDisplayer.requestFocus());// Asks that the focus will be on _sokobanDisplayer
+		this._sokobanDisplayer.setOnKeyPressed(new EventHandler<KeyEvent>() {// Listens to keypressed event
 			@Override
 			public void handle(KeyEvent event) {
 				String direction = "";
@@ -184,26 +169,27 @@ public class MainWindowController extends Observable implements Initializable, I
 	@Override
 	public void display(Level level) {
 		this._sokobanDisplayer.setSokobanData(level.get_items());
-		this._numOfMoves = level.getLevel_numOfMoves();// Update the number of
-														// moves
+		this._numOfMoves = level.getLevel_numOfMoves();// Update the number of moves
+		this._time = level.get_finishTime();
 	}
 
 	@Override
 	public void displayMessage(String msg) {
 		Platform.runLater(new Runnable() {// Popup the msg to the screen
 			public void run() {
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setContentText(msg);
-				alert.showAndWait();
+				TextInputDialog dialog = new TextInputDialog();
+				dialog.setTitle("YOU WON! :)");
+				dialog.setHeaderText(msg);
+				dialog.setContentText("Please enter your name: ");
+				
+				// Traditional way to get the response value.
+				Optional<String> result = dialog.showAndWait();
+				if (result.isPresent()) {
+					Player player = new Player(result.get(), _numOfMoves, _time);
+					manager.addPlayer(player);
+				}
 			}
 		});
-		
-	}
 
-	@Override
-	public void getInput() {
-		System.out.println("Please enter your name: ");
 	}
-
 }

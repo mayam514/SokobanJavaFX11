@@ -1,9 +1,7 @@
 package view;
 	
-import commons.Player;
 import controller.Controller;
 import controller.SokobanController;
-import db.SokobanDbManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -72,10 +70,10 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		SokobanDbManager manager = new SokobanDbManager();
+		/*SokobanDbManager manager = new SokobanDbManager();
 		Player p = new Player("Moshe", 5, 100);
-		manager.addPlayer(p);
-		//launch(args);
+		manager.addPlayer(p);*/
+		launch(args);
 		
 	}
 }
