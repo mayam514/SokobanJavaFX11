@@ -13,6 +13,12 @@ import commons.Player;
 public class SokobanDbManager {
 	//Data member
 	private static SessionFactory sessionFactory;
+	private static SokobanDbManager instance = new SokobanDbManager();
+	
+	
+	public static SokobanDbManager getInstance() {
+		return instance;
+	}
 
 	//Constructor
 	public SokobanDbManager() {
