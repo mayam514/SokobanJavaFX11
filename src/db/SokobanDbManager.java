@@ -1,30 +1,25 @@
 package db;
 
+import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-
-import commons.Player;
+import commons.Score;
 
 public class SokobanDbManager {
 	//Data member
 	private static SessionFactory sessionFactory;
-	private static SokobanDbManager instance = new SokobanDbManager();
-	
-	
-	public static SokobanDbManager getInstance() {
-		return instance;
-	}
 
 	//Constructor
 	public SokobanDbManager() {
 		createSessionFactory();
 	}
-	
+
 	public static void createSessionFactory() {
 	    Configuration configuration = new Configuration();
 	    configuration.configure();
@@ -33,19 +28,20 @@ public class SokobanDbManager {
 	            configuration.getProperties()). buildServiceRegistry();
 	    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	}
-	
+
+
 	/**
 	 * The method adds a new player to the database
 	 * @param p the player that we want to add to the database
 	 */
-	public void addPlayer(Player p) {
+	public void addScore(Score s) {
 		Session session = null;
 		Transaction tx = null;
 
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			session.save(p);
+			session.save(s);
 			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null)
@@ -56,18 +52,27 @@ public class SokobanDbManager {
 		}
 	}
 
-	/**
-	 * The method adds a new level to the database
-	 * @param l the level that we want to add to the database
-	 */
-	public void addLevel(commons.Level l) {
+	public List<Score> addQuery(String parameter, String parameterValue, String parameterToOrderBy ,boolean descOrder){
+
 		Session session = null;
 		Transaction tx = null;
+		List<Score> list = null;
+		String queryString = "from Scores where "+ parameter + " = '" + parameterValue + "' order by " + parameterToOrderBy;
+		if(descOrder){
+			queryString += " desc";
+		}
 
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			session.save(l);
+			Query query = session.createQuery(queryString);
+			list = query.list();
+
+			System.out.println("***************");
+			for(Object o : list){
+				System.out.println(o.toString());
+			}
+
 			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null)
@@ -76,40 +81,7 @@ public class SokobanDbManager {
 			if (session != null)
 				session.close();
 		}
-	}
-	
-	/**
-	 * The method updates the player's details in the database
-	 * @param p the player that we want to update
-	 */
-	public void updatePlayer(Player p) {
-		//TODO
-	}
-	
-	/**
-	 * The method updates the level's details in the database
-	 * @param l the level that we want to update
-	 */
-	public void updateLevel(commons.Level l) {
-		//TODO
-
+		return list;
 	}
 
-	/**
-	 * The method deletes a player from the database
-	 * @param name the name of the player that we want to delete
-	 */
-	public void deletePlayer(String name) {
-		//TODO
-
-	}
-	
-	/**
-	 * The method deletes a level from the database
-	 * @param name the name of the level that we want to delete
-	 */
-	public void deleteLevel(String name) {
-		//TODO
-
-	}
 }

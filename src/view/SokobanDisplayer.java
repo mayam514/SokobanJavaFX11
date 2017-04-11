@@ -47,7 +47,7 @@ public class SokobanDisplayer extends Canvas{
 	 */
 	public void redraw(){//I will want to activate it everytime that something changed
 		if(_sokobanData != null){
-			//Get the canvas dimentions
+			//Get the canvas dimensions
 			double W = getWidth();
 			double H = getHeight();
 			int max = 0;

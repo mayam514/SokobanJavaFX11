@@ -26,5 +26,4 @@ public class MoveCommand extends Command {
 			this._view.displayMessage("CONGRATULATIONS!!!");//announce winning
 		}
 	}
-
 }

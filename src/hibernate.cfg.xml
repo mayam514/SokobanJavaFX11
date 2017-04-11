@@ -22,7 +22,6 @@
 		<!-- Echo all executed SQL to stdout -->
 		<property name="show_sql">true</property>
 
-		<mapping class="commons.Player"></mapping>
-		<mapping class="commons.Level"></mapping>
+		<mapping class="commons.Score"></mapping>
 	</session-factory>
 </hibernate-configuration>

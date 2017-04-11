@@ -1,16 +1,5 @@
 package view;
 	
-import java.util.LinkedList;
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-
-import commons.Level;
-import commons.Player;
 import controller.Controller;
 import controller.SokobanController;
 import javafx.application.Application;
@@ -81,40 +70,6 @@ public class Main extends Application {
 		}
 	}
 	
-	public static class HibernateUtil {
-
-		private static SessionFactory sessionFactory;
-
-		private static SessionFactory buildSessionFactory() {
-			try {
-				// Create the SessionFactory from hibernate.cfg.xml
-				Configuration configuration = new Configuration();
-				configuration.configure("hibernate.cfg.xml");
-				System.out.println("Hibernate Configuration loaded");
-
-				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-						.applySettings(configuration.getProperties()).build();
-				System.out.println("Hibernate serviceRegistry created");
-
-				SessionFactory sessionFactory = configuration
-						.buildSessionFactory(serviceRegistry);
-
-				return sessionFactory;
-			} catch (Throwable ex) {
-				System.err.println("Initial SessionFactory creation failed." + ex);
-				ex.printStackTrace();
-				throw new ExceptionInInitializerError(ex);
-			}
-		}
-
-		public static SessionFactory getSessionFactory() {
-			if (sessionFactory == null)
-				sessionFactory = buildSessionFactory();
-			return sessionFactory;
-		}
-
-	}
-	
 	public static void main(String[] args) {
 		/*SokobanDbManager manager = new SokobanDbManager();
 		Player p = new Player("LALALA", 5, 100);
@@ -123,28 +78,11 @@ public class Main extends Application {
 		Level l = new Level("level2");
 		manager.addLevel(l);*/
 		
+		/*SokobanDbManager manager = new SokobanDbManager();
+		Score s = new Score("MAY","level1",5,8000);
+		manager.addScore(s);*/
 		
-		System.out.println("Hibernate many to many (Annotation)");
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		session.beginTransaction();
-
-		Player p1 = new Player("PLAYER1",1,9000000);
-	    Level l1 = new Level("CONSUMER");
-	    Level l2 = new Level("CONSUMMMMMMER");
-	        List<Level> levels = new LinkedList<Level>();
-	        levels.add(l1);
-	        levels.add(l2);
-
-	        p1.setLevels(levels);
-
-	        session.save(p1);
-
-		session.getTransaction().commit();
-		System.out.println("Done");
-		
-		
-		//launch(args);
+		launch(args);
 		
 	}
 }

@@ -2,56 +2,30 @@ package commons;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
 
 import model.data.Character;
 import model.data.Item;
 import model.data.Position;
 
-@Entity(name="Levels")
+
 public class Level implements Serializable{
 	//Data members
 	private static final long serialVersionUID = 1L;
-	@Transient
+	
 	private int _levelNumber;
-	
-	@Column(name="LevelName")
-	@Id
 	private String _levelName;
-	
-	@Transient
 	private double _score;
-	@Transient
 	private int _numOfMoves;
-	@Transient
 	private int _numOfFinalPositions;
-	@Transient
 	private int _numOfBoxesOnFinalPositions;
-	@Transient
 	private int _width;
-	@Transient
 	private int _height;
-	@Transient
 	private ArrayList<ArrayList<Item>> _items;
-	@Transient
 	private ArrayList<Character> _characters;
-	@Transient
 	private boolean _isWinner;
-	@Transient
 	private long _startTime;
-	@Transient
 	private long _finishTime;
 	
-	@ManyToMany(mappedBy="levels")
-	private List<Player> players = new ArrayList<Player>();
-
 	//Constructor
 	public Level() {
 		this._levelNumber = 1;
@@ -177,15 +151,6 @@ public class Level implements Serializable{
 
 	public void set_isWinner(boolean _isWinner) {
 		this._isWinner = _isWinner;
-	}
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "levels")
-	public List<Player> getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(List<Player> players) {
-		this.players = players;
 	}
 	
 	/**
