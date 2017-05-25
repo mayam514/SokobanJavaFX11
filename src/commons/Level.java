@@ -3,7 +3,6 @@ package commons;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import model.data.Character;
 import model.data.Item;
