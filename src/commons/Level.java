@@ -2,6 +2,8 @@ package commons;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import model.data.Character;
 import model.data.Item;
@@ -190,7 +192,39 @@ public class Level implements Serializable{
 		}
 		return this._items.get(p.getP_y()).get(p.getP_x());
 	}
-
+	
+	/**
+	 * The method gets an item and returns a hash map with all it's possible neighbors (with directions)
+	 * @param item the item we want to check it's neighbors
+	 * @return a hash map of positions by direction of the possible neighbors
+	 */
+	public HashMap<String, Position> getAllPossibleNeighbors(Item item){
+		HashMap<String, Position> map = new HashMap<String, Position>();
+		Position p = new Position(item.get_position());
+		
+		p.setP_x(p.getP_x() + 1);
+		if(this.getItemFromArrayByPosition(p).isFreeSpace()){
+			map.put("Right", new Position(p));
+		}
+		
+		p.setP_x(p.getP_x() - 2);
+		if(this.getItemFromArrayByPosition(p).isFreeSpace()){
+			map.put("Left", new Position(p));
+		}
+		p.setP_x(p.getP_x() + 1);
+		p.setP_y(p.getP_y() + 1);
+		if(this.getItemFromArrayByPosition(p).isFreeSpace()){
+			map.put("Down", new Position(p));
+		}
+		
+		p.setP_y(p.getP_y() - 2);
+		if(this.getItemFromArrayByPosition(p).isFreeSpace()){
+			map.put("Up", new Position(p));
+		}
+		
+		return map;
+	}
+	
 	@Override
 	public String toString() {
 		String str = "";
