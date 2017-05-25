@@ -194,12 +194,11 @@ public class Level implements Serializable{
 	
 	/**
 	 * The method gets an item and returns a hash map with all it's possible neighbors (with directions)
-	 * @param item the item we want to check it's neighbors
+	 * @param p the position of the item we want to check it's neighbors
 	 * @return a hash map of positions by direction of the possible neighbors
 	 */
-	public HashMap<String, Position> getAllPossibleNeighbors(Item item){
+	public HashMap<String, Position> getAllPossibleNeighbors(Position p){
 		HashMap<String, Position> map = new HashMap<String, Position>();
-		Position p = new Position(item.get_position());
 		
 		p.setP_x(p.getP_x() + 1);
 		if(this.getItemFromArrayByPosition(p).isFreeSpace()){
