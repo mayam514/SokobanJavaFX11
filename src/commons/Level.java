@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.data.Box;
 import model.data.Character;
+import model.data.FinalPosition;
 import model.data.Item;
 import model.data.Position;
 
@@ -23,6 +25,8 @@ public class Level implements Serializable{
 	private int _height;
 	private ArrayList<ArrayList<Item>> _items;
 	private ArrayList<Character> _characters;
+	private ArrayList<Box> _boxes;
+	private ArrayList<FinalPosition> _finalPositions;
 	private boolean _isWinner;
 	private long _startTime;
 	private long _finishTime;
@@ -37,8 +41,10 @@ public class Level implements Serializable{
 		this._numOfBoxesOnFinalPositions = 0;
 		this._width = 0;
 		this._height = 0;
-		this._items=new ArrayList<ArrayList<Item>>();
-		this._characters=new ArrayList<Character>();
+		this._items = new ArrayList<ArrayList<Item>>();
+		this._characters = new ArrayList<Character>();
+		this._boxes = new ArrayList<Box>();
+		this._finalPositions = new ArrayList<FinalPosition>();
 		this._isWinner = false;
 		this._startTime = 0;
 		this._finishTime = 0;
@@ -144,6 +150,22 @@ public class Level implements Serializable{
 
 	public void set_characters(ArrayList<Character> _characters) {
 		this._characters = _characters;
+	}
+	
+	public ArrayList<Box> get_boxes() {
+		return _boxes;
+	}
+
+	public void set_boxes(ArrayList<Box> _boxes) {
+		this._boxes = _boxes;
+	}
+	
+	public ArrayList<FinalPosition> get_finalPositions() {
+		return _finalPositions;
+	}
+
+	public void set_finalPositions(ArrayList<FinalPosition> _finalPositions) {
+		this._finalPositions = _finalPositions;
 	}
 	
 	public boolean _isWinner() {

@@ -28,18 +28,22 @@ public class MyTextLevelLoader implements ILevelLoader{
 							myLevel.initiateItemInItemsArray(new Wall(itemPosition), itemPosition);
 							break;
 						case 'o': //There's a final position
-							myLevel.initiateItemInItemsArray(new FinalPosition(itemPosition), itemPosition);
+							FinalPosition fp = new FinalPosition(itemPosition);
+							myLevel.initiateItemInItemsArray(fp, itemPosition);
+							myLevel.get_finalPositions().add(fp);//Add final position to the final positions array
 							myLevel.set_numOfFinalPositions(myLevel.get_numOfFinalPositions() + 1);//Increase number of final positions by one
 							break;
-						case '@'://There's a wall
-							myLevel.initiateItemInItemsArray(new Box(itemPosition), itemPosition);
+						case '@'://There's a box
+							Box box = new Box(itemPosition);
+							myLevel.initiateItemInItemsArray(box, itemPosition);
+							myLevel.get_boxes().add(box);//Add box to boxes array
 							break;
-						case 'A': 
+						case 'A': //There's a character
 							Character character = new Character(itemPosition);
 							myLevel.initiateItemInItemsArray(character, itemPosition);
 							myLevel.get_characters().add(character);//Add character to characters array
 							break;
-						case ' ':
+						case ' '://There's a floor
 							myLevel.initiateItemInItemsArray(new Floor(itemPosition), itemPosition);
 							break;
 						}
