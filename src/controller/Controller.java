@@ -30,7 +30,7 @@ public class Controller{
 	
 	/**
 	 * The method polls the first command from the command queue
-	 * and activates the command by his exectue() method until
+	 * and activates the command by his execute() method until
 	 * got an exit flag
 	 */
 	public void start() {

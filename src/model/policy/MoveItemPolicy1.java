@@ -14,7 +14,6 @@ public class MoveItemPolicy1 extends MoveItem{
 		super(new Policy1());
 	}
 	
-	
 	//Override methods
 	@Override
 	public boolean moveCharacter(Level level, Character character, Item moveToItem, Item nextItem) {
@@ -22,7 +21,7 @@ public class MoveItemPolicy1 extends MoveItem{
 		if(!this.get_policy().canCharacterMove(moveToItem, nextItem)){
 			return false;
 		}
-			
+		
 		Item characterReplace;//Saves the place of the character that should be replace
 		
 		//Check what needs to be in the items array instead of the characters
@@ -30,7 +29,7 @@ public class MoveItemPolicy1 extends MoveItem{
 			characterReplace = new FinalPosition(character.get_position());
 		}
 		else{
-			characterReplace=new Floor(character.get_position());
+			characterReplace = new Floor(character.get_position());
 		}
 		level.setItemInItemsArray(characterReplace, character.get_position());//Set the new item instead of the character in the items array
 		
