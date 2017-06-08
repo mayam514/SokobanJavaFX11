@@ -4,21 +4,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Solution {
-	private LinkedList<Action> actions = new LinkedList<Action>();
+	//Data members
+	private LinkedList<Action> actionsForSolution = new LinkedList<Action>();
 
-	public List<Action> getActions() {
-		return actions;
+	//Get and set methods
+	public List<Action> getActionsForSolution() {
+		return actionsForSolution;
 	}
 
-	public void setActions(LinkedList<Action> actions) {
-		this.actions = actions;
+	public void setActionsForSolution(LinkedList<Action> actions) {
+		this.actionsForSolution = actions;
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		for (Action a : actions) {
+		for (Action a : actionsForSolution) {
 			sb.append(a.getName()).append("\n");
 		}
 		

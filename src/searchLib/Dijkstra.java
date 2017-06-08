@@ -1,18 +1,26 @@
 package searchLib;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
 public class Dijkstra<T> extends CommonSearcher<T>{
-	// Data members
+	//Data members
 	private PriorityQueue<State<T>> openList;
+	private HashSet<State<T>> closeList;
 
-	// Constructor
+	//Constructor
 	public Dijkstra() {
-		openList = new PriorityQueue<State<T>>();
-		evaluatedNodes = 0;
+		this.evaluatedNodes = 0;
+		openList = new PriorityQueue<>(new Comparator<State<T>>() {
+			@Override
+			public int compare(State<T> s1 ,State<T> s2) {
+				return (int) (s1.getCost() - s2.getCost());
+			}
+		});
+		
+		closeList = new HashSet<>();
 	}
 
 	/**
@@ -26,32 +34,37 @@ public class Dijkstra<T> extends CommonSearcher<T>{
 
 	@Override
 	public Solution search(Searchable<T> s) {
-		openList.add(s.getInitialState());//Add the first node to the openList
-		HashSet<State<T>> closedSet = new HashSet<State<T>>();//Create a closed set of all the states we evaluated
-		while (openList.size() > 0) {//While there are states we didn't evaluate yet
-			State<T> n = popOpenList();
-			closedSet.add(n);
-			if (n.equals(s.getGoalState())) {//If we got to the goalState
-				return backTrace(n);
-			}
-			HashMap<Action, State<T>> map = s.getAllPossibleMoves(n);//Create a hashmap of all possible moves
-			ArrayList<State<T>> successors = new ArrayList<>(map.values());//Create a linkedlist of all possible states from the hashmap
-			for (State<T> state : successors) {//For each possible state
-				if (!closedSet.contains(state) && !openList.contains(state)) {//If the state isn't in the openlist and isn't the closedlist, we haven't discovered it yet and we need to update it's parent and add it to the openList
-				state.setCameFrom(n);
-					openList.add(state);
-				} else {
-					if(state.getCost() < n.getCost()){//If the new path is better than the previous one
-						if(!openList.contains(state)){
-							openList.add(state);
-						}
-						else{
-							openList.remove(n);
-							openList.add(state);
+		openList.add(s.getInitialState());
+
+		while(!openList.isEmpty()){
+			State<T> n = openList.poll();
+			this.evaluatedNodes++;
+			closeList.add(n);
+			HashMap<Action, State<T>> map = s.getAllPossibleStates(n); 
+			for (Action a : map.keySet()) {
+				State<T> sunN = map.get(a);
+				sunN.setCameFrom(n);
+				if(!closeList.contains(sunN)){
+					if(!openList.contains(sunN))
+						openList.add(sunN);	
+					else{
+						for (State<T> state : openList) {
+							if(state.equals(sunN)){
+								if(sunN.getCost() < state.getCost()){//found lower cost
+									openList.remove(state);
+									openList.add(sunN);
+								}
+							}
 						}
 					}
 				}
 			}
+		}
+		if(this.closeList.contains(s.getGoalState())){
+			for (State<T> state : closeList) {
+				if(state.equals(s.getGoalState()))
+					return this.backTrace(state);
+			} 
 		}
 		return null;
 	}

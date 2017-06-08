@@ -1,8 +1,18 @@
 package searchLib;
 
-public class Action {
-	private String name;
+import java.util.List;
 
+public class Action {
+	//Data members
+	private String name;
+	private List<Action> history;
+	
+	//Constructor
+	public Action(String name) {
+		this.name = name;
+	}
+
+	//Get and set methods
 	public String getName() {
 		return name;
 	}
@@ -11,8 +21,11 @@ public class Action {
 		this.name = name;
 	}
 	
-	public Action(String name) {
-		this.name = name;
+	public List<Action> getHistory() {
+		return history;
+	}
+	public void setHistory(List<Action> history) {
+		this.history = history;
 	}
 	
 	@Override
@@ -26,4 +39,8 @@ public class Action {
 		return name.hashCode();
 	}
 	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }

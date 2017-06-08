@@ -8,7 +8,7 @@ import java.util.Random;
 
 import plannable.State;
 import plannable.action.Action;
-import plannable.predicate.Predicate;
+import strips.Predicate;
 
 public abstract class CommonPlanner implements Planner {
 	protected Random rand = new Random();

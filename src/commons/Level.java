@@ -31,7 +31,7 @@ public class Level implements Serializable{
 	private long _startTime;
 	private long _finishTime;
 	
-	//Constructor
+	//Constructors
 	public Level() {
 		this._levelNumber = 1;
 		this._levelName = "";
@@ -53,7 +53,7 @@ public class Level implements Serializable{
 	public Level(String name){
 		this._levelName = new String(name);
 	}
-
+	
 	//Get and set methods
 	public int get_number() {
 		return _levelNumber;
@@ -174,6 +174,20 @@ public class Level implements Serializable{
 
 	public void set_isWinner(boolean _isWinner) {
 		this._isWinner = _isWinner;
+	}
+	
+	/**
+	 * The method creates the level board as a 2-D array of chars
+	 * @return The board
+	 */
+	public char[][] getLevelAsBoard(){
+		char[][] levelBoard = new char[this._width][this._height];
+		for(int i = 0 ; i < this._width ; i++){
+			for(int j = 0 ; j < this._height ; j++){
+				levelBoard[i][j] = getItemFromArrayByPosition(new Position(i, j)).toString().charAt(0);
+			}
+		}
+		return levelBoard;
 	}
 	
 	/**

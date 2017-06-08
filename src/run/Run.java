@@ -1,10 +1,10 @@
 package run;
 
 import blocksWorld.BlocksWorldAdapter;
-import plannable.Plannable;
 import planners.Plan;
 import planners.Planner;
 import planners.Strips;
+import strips.Plannable;
 
 public class Run {
 

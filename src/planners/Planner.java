@@ -1,6 +1,6 @@
 package planners;
 
-import plannable.Plannable;
+import strips.Plannable;
 
 public interface Planner {
 	Plan computePlan(Plannable plannable, HeuristicMethods h);

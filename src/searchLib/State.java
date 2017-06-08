@@ -1,15 +1,21 @@
 package searchLib;
 
+import java.util.List;
+
 public class State<T> {
+	//Data members
 	private T state;
 	private State<T> cameFrom;
 	private Action action;
 	private double cost;
+	private List<Action> cameFromActions;
 	
-	public State(T state) {
+	//Constructor
+	public State(T state, double cost) {
 		this.state = state;
 	}
 	
+	//Get and set methods
 	public T getState() {
 		return state;
 	}
@@ -25,6 +31,14 @@ public class State<T> {
 	public void setCameFrom(State<T> cameFrom) {
 		this.cameFrom = cameFrom;
 	}
+	
+	public Action getAction() {
+		return action;
+	}
+
+	public void setAction(Action action) {
+		this.action = action;
+	}
 
 	public double getCost() {
 		return cost;
@@ -32,6 +46,14 @@ public class State<T> {
 
 	public void setCost(double cost) {
 		this.cost = cost;
+	}
+	
+	public List<Action> getCameFromActions() {
+		return cameFromActions;
+	}
+
+	public void setCameFromActions(List<Action> cameFromActions) {
+		this.cameFromActions = cameFromActions;
 	}
 	
 	@Override
@@ -50,11 +72,7 @@ public class State<T> {
 		return state.equals(s.state);
 	}
 
-	public Action getAction() {
-		return action;
-	}
+	
 
-	public void setAction(Action action) {
-		this.action = action;
-	}
+	
 }

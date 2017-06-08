@@ -71,4 +71,24 @@ public abstract class Item implements Serializable{
 	 */
 	public abstract void draw(GraphicsContext gc, Position p, double cellWidth, double cellHeight);
 
+	@Override
+	public String toString(){
+		if(this instanceof Character){
+			return "A";
+		}
+		else if(this instanceof Box){
+			return "@";
+		}
+		else if(this instanceof Wall){
+			return "#";
+		}
+		else if(this instanceof FinalPosition){
+			return "o";
+		}
+		else if(this instanceof Floor){
+			return " ";
+		}
+		return "";
+	}
+	
 }

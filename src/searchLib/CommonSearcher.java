@@ -15,13 +15,17 @@ public abstract class CommonSearcher<T> implements Searcher<T> {
 		LinkedList<Action> actions = new LinkedList<Action>();
 		
 		State<T> currState = goalState;
-		while (currState.getCameFrom() != null) {			
+		while (currState.getCameFrom() != null) {
 			actions.addFirst(currState.getAction());
+			if((currState.getAction().getHistory()!=null)&&(currState.getAction().getHistory().size()!=0))
+				for (int i = currState.getAction().getHistory().size()-1 ; i >= 0 ; i--) {
+					actions.addFirst(currState.getAction().getHistory().get(i));
+				}
 			currState = currState.getCameFrom();
 		}
 		
 		Solution sol = new Solution();
-		sol.setActions(actions);
+		sol.setActionsForSolution(actions);
 		return sol;
 	}
 	
@@ -30,5 +34,8 @@ public abstract class CommonSearcher<T> implements Searcher<T> {
 		return evaluatedNodes;
 	}
 	
-	
+	@Override
+	public void init() {
+		this.evaluatedNodes = 0;
+	}
 }

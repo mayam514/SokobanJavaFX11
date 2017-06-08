@@ -2,6 +2,7 @@ package view;
 	
 import controller.Controller;
 import controller.SokobanController;
+import controller.commands.LoadLevelCommand;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

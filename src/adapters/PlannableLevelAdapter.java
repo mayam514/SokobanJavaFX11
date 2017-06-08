@@ -9,11 +9,11 @@ import model.data.Box;
 import model.data.Character;
 import model.data.FinalPosition;
 import plannable.Goal;
-import plannable.Plannable;
 import plannable.State;
 import plannable.action.Action;
-import plannable.predicate.Predicate;
 import searchLib.Solution;
+import strips.Plannable;
+import strips.Predicate;
 
 public class PlannableLevelAdapter implements Plannable{
 
