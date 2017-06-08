@@ -21,14 +21,14 @@ public class SearchablePushAdapter extends CommonSearchable {
 		super(startPos, endPos, board);
 		this.searcher = new BFS<Position>();
 		this.moveAdapter = new SearchableMoveAdapter(new Position(0,0), new Position(0,0), board);
-		this.characterInitPosition = deleteCharacterFromBoard();
+		this.characterInitPosition = deleteCharacterFromBoardAndReturnPosition();
 	}
 
 	/**
 	 * The method deletes the character from the board and return it's position
 	 * @return The position of the character before we deleted it from board
 	 */
-	private Position deleteCharacterFromBoard() {
+	private Position deleteCharacterFromBoardAndReturnPosition() {
 		for (int i = 0 ; i < this.board.length ; i++) {
 			for (int j = 0 ; j < this.board[0].length ; j++) {
 				if (this.board[i][j] == 'A') {
@@ -39,33 +39,7 @@ public class SearchablePushAdapter extends CommonSearchable {
 		}
 		return null;
 	}
-	
-	/**
-	 * The method gets an action and the current position of the character and returns the new position according to the action direction
-	 * @param action The action that says where we want to move the character to
-	 * @param currPos The current position of the character
-	 * @return The new position of the character
-	 */
-	private Position getCharacterPositionAfterAction(Action action, Position currPos) {
-		if(action!= null){
-			String actionName = action.getName();
-			int x = currPos.getP_x(), y = currPos.getP_y();
-			if(actionName.equals("move up")){
-				return new Position(x , y-1);
-			}
-			else if(actionName.equals("move down")){
-				return new Position(x , y+1);
-			}
-			else if(actionName.equals("move left")){
-				return new Position(x-1 , y);
-			}
-			else if(actionName.equals("move right")){
-				return new Position(x+1 , y);
-			}
-		}
-		return this.characterInitPosition;
-	}
-	
+
 	/**
 	 * The method checks if the position is a free space
 	 * @param p The position we check
@@ -94,10 +68,39 @@ public class SearchablePushAdapter extends CommonSearchable {
 		return this.searcher.search(this.moveAdapter);//Return the shortest path to the box
 	}
 
+	/**
+	 * The method gets an action and the current position of the character and returns the new position according to the action direction
+	 * @param action The action that says where we want to move the character to
+	 * @param currPos The current position of the character
+	 * @return The new position of the character or, if not found, the initial position of the character
+	 */
+	public Position getCharacterPositionAfterAction(Action action, Position currPos) {
+		if(action != null){
+			String actionName = action.getName();
+			int x = currPos.getP_x(), y = currPos.getP_y();
+			if(actionName.equals("move up")){
+				return new Position(x , y-1);
+			}
+			else if(actionName.equals("move down")){
+				return new Position(x , y+1);
+			}
+			else if(actionName.equals("move left")){
+				return new Position(x-1 , y);
+			}
+			else if(actionName.equals("move right")){
+				return new Position(x+1 , y);
+			}
+		}
+
+		return this.characterInitPosition;
+	}
+
 	@Override
 	public HashMap<Action, State<Position>> getAllPossibleStates(State<Position> state) {
 		HashMap<Action, State<Position>> states = new HashMap<>();
-		Position currBoxPos = state.getState(), newBoxPos, characterTarget, characterPos = getCharacterPositionAfterAction(state.getAction(), currBoxPos);
+		Position currBoxPos = state.getState();
+		Position newBoxPos, characterTarget;
+		Position characterPos = getCharacterPositionAfterAction(state.getAction(), currBoxPos);
 		Solution solution;
 		State<Position> newState;
 
@@ -107,23 +110,25 @@ public class SearchablePushAdapter extends CommonSearchable {
 
 		//In order to push the box up, there has to be a free space below the box for the character and above the box for the new position of the box
 		//In order to push the box down, there has to be a free space above the box for the character and below the box for the new position of the box
-		if (isValidPosition(currBoxPos) && isValidPosition(currBoxPos)) {
-			if (isFreeSpace(currBoxPos) && isFreeSpace(currBoxPos)){
+		Position p1 = new Position(currBoxPos.getP_x(), currBoxPos.getP_y() - 1);//Up to the box
+		Position p2 = new Position(currBoxPos.getP_x(), currBoxPos.getP_y() + 1);//Down to the box
+		if ((isValidPosition(p1) || characterPos.equals(p1)) && (isValidPosition(p2) || characterPos.equals(p2))) {
+			if ((isFreeSpace(p1) || characterPos.equals(p1)) && (isFreeSpace(p2) || characterPos.equals(p2))){
 				//Move up
-				characterTarget = new Position(currBoxPos.getP_x(), currBoxPos.getP_y()+1);
+				characterTarget = p2;
 				solution = getCharacterShortestPathToBox(currBoxPos, characterPos, characterTarget);
 				if (solution != null || characterTarget.equals(characterPos)) {//If there is a path to the box or the character is already in that position
-					newBoxPos = new Position(currBoxPos.getP_x(), currBoxPos.getP_y()-1);
+					newBoxPos = p1;
 					newState = new State<Position>(newBoxPos, state.getCost() + 1);
 					newState.setCameFromActions(solution.getActionsForSolution());
 					states.put(new Action("move up"), newState);
 				}
 
 				//Move down
-				characterTarget = new Position(currBoxPos.getP_x() , currBoxPos.getP_y()-1);
+				characterTarget = p1;
 				solution = getCharacterShortestPathToBox(currBoxPos, characterPos, characterTarget);
 				if (solution != null || characterTarget.equals(characterPos)) {//If there is a path to the box or the character is already in that position
-					newBoxPos = new Position(currBoxPos.getP_x(), currBoxPos.getP_y()+1);
+					newBoxPos = p2;
 					newState = new State<Position>(newBoxPos, state.getCost() + 1);
 					newState.setCameFromActions(solution.getActionsForSolution());
 					states.put(new Action("move down"), newState);
@@ -133,23 +138,25 @@ public class SearchablePushAdapter extends CommonSearchable {
 
 		//In order to push the box left, there has to be a free space right to the box for the character and left to the box for the new position of the box
 		//In order to push the box right, there has to be a free space left to the box for the character and right to the box for the new position of the box
-		if(isValidPosition(currBoxPos) && isValidPosition(currBoxPos)){
-			if(isFreeSpace(currBoxPos) && isFreeSpace(currBoxPos)){
+		p1 = new Position(currBoxPos.getP_x() - 1, currBoxPos.getP_y());//Left to the box
+		p2 = new Position(currBoxPos.getP_x() + 1, currBoxPos.getP_y());//Right to the box
+		if ((isValidPosition(p1) || characterPos.equals(p1)) && (isValidPosition(p2) || characterPos.equals(p2))) {
+			if ((isFreeSpace(p1) || characterPos.equals(p1)) && (isFreeSpace(p2) || characterPos.equals(p2))){
 				//Move left
-				characterTarget = new Position(currBoxPos.getP_x()+1 , currBoxPos.getP_y());
+				characterTarget = p2;
 				solution = getCharacterShortestPathToBox(currBoxPos, characterPos, characterTarget);
 				if(solution!=null || characterTarget.equals(characterPos)){//If there is a path to the box or the character is already in that position
-					newBoxPos = new Position(currBoxPos.getP_x()-1 , currBoxPos.getP_y());
+					newBoxPos = p1;
 					newState = new State<Position>(newBoxPos, state.getCost() + 1);
 					newState.setCameFromActions(solution.getActionsForSolution());
 					states.put(new Action("move left"), newState);
 				}
 
 				//Move right
-				characterTarget = new Position(currBoxPos.getP_x()-1 , currBoxPos.getP_y());
+				characterTarget = p1;
 				solution = getCharacterShortestPathToBox(currBoxPos, characterPos, characterTarget);
 				if(solution!=null || characterTarget.equals(characterPos)){//If there is a path to the box or the character is already in that position
-					newBoxPos = new Position(currBoxPos.getP_x()+1 , currBoxPos.getP_y());
+					newBoxPos = p2;
 					newState = new State<Position>(newBoxPos, state.getCost() + 1);
 					newState.setCameFromActions(solution.getActionsForSolution());
 					states.put(new Action("move right"), newState);

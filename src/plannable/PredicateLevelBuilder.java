@@ -10,6 +10,7 @@ public class PredicateLevelBuilder {
 	//Data members
 	private Level level;
 	
+	//Constructor
 	public PredicateLevelBuilder(Level level) {
 		this.level = level;
 	}

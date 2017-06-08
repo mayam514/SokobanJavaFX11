@@ -71,8 +71,4 @@ public class State<T> {
 		State<T> s = (State<T>)o;
 		return state.equals(s.state);
 	}
-
-	
-
-	
 }

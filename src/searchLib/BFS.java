@@ -26,18 +26,22 @@ public class BFS<T> extends CommonSearcher<T> {
 				return backTrace(n);
 			}
 			HashMap<Action, State<T>> map = s.getAllPossibleStates(n); //Create a hashmap of all possible moves
-			for (Action a : map.keySet()) {
-				State<T> sunN = map.get(a);
-				sunN.setCameFrom(n);
-				if(!closedList.contains(sunN)){
-					if(!openList.contains(sunN))
-						openList.add(sunN);	
-					else{
-						for (State<T> state : openList) {
-							if(state.equals(sunN)){
-								if(sunN.getCost() < state.getCost()){//If the new path is better than the previous one
-									openList.remove(state);
-									openList.add(sunN);
+			if(map != null){
+				for (Action a : map.keySet()) {
+					State<T> sunN = map.get(a);
+					//sunN.setCameFrom(n);
+					if(!closedList.contains(sunN)){
+						if(!openList.contains(sunN)){
+							sunN.setCameFrom(n);
+							openList.add(sunN);	
+						}
+						else{
+							for(State<T> state : openList) {
+								if(state.equals(sunN)){
+									if(sunN.getCost() < state.getCost()){//If the new path is better than the previous one
+										openList.remove(state);
+										openList.add(sunN);
+									}
 								}
 							}
 						}

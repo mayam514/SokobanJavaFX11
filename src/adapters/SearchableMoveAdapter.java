@@ -40,14 +40,14 @@ public class SearchableMoveAdapter extends CommonSearchable{
 		if (isValidPosition(new Position(x-1,y)) && (this.board[x-1][y] == ' ' || this.board[x-1][y] == 'o')) {
 			newPos = new Position(x-1 , y);
 			newState = new State<Position>(newPos, state.getCost() + 1);
-			states.put(new Action("move down"), newState);
+			states.put(new Action("move left"), newState);
 		}
 		
 		//Move right
 		if (isValidPosition(new Position(x+1,y)) && (this.board[x+1][y] == ' ' || this.board[x+1][y] == 'o')) {
 			newPos = new Position(x+1 , y);
 			newState = new State<Position>(newPos, state.getCost() + 1);
-			states.put(new Action("move down"), newState);
+			states.put(new Action("move right"), newState);
 		}
 		return states;
 	}

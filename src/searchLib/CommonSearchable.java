@@ -59,7 +59,7 @@ public abstract class CommonSearchable implements Searchable<Position>{
 	 * @return If the position is not out of boundaries
 	 */
 	protected boolean isValidPosition(Position p) {
-		if (p.getP_x() >= 0 && p.getP_x() < this.board.length && p.getP_y() >= 0 && p.getP_y() < this.board[0].length){
+		if ((p.getP_x() >= 0) && (p.getP_x() < this.board.length) && (p.getP_y() >= 0) && (p.getP_y() < this.board[0].length)){
 			return true;
 		}
 		return false;

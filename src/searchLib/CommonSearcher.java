@@ -17,10 +17,13 @@ public abstract class CommonSearcher<T> implements Searcher<T> {
 		State<T> currState = goalState;
 		while (currState.getCameFrom() != null) {
 			actions.addFirst(currState.getAction());
-			if((currState.getAction().getHistory()!=null)&&(currState.getAction().getHistory().size()!=0))
-				for (int i = currState.getAction().getHistory().size()-1 ; i >= 0 ; i--) {
-					actions.addFirst(currState.getAction().getHistory().get(i));
+			if(currState.getAction() != null){
+				if((currState.getAction().getHistory() != null) && (currState.getAction().getHistory().size() != 0)) {
+					for (int i = currState.getAction().getHistory().size()-1 ; i >= 0 ; i--) {
+						actions.addFirst(currState.getAction().getHistory().get(i));
+					}
 				}
+			}
 			currState = currState.getCameFrom();
 		}
 		

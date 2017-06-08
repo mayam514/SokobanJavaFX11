@@ -1,38 +1,23 @@
 package plannable;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import adapters.SearchableMoveAdapter;
-import commons.Level;
-import model.data.Position;
-import searchLib.BFS;
-import searchLib.Solution;
+import searchLib.Action;
 import strips.ActionPlan;
-import strips.Predicate;
 
-public class Move extends ActionPlan{
-	//Data members
-	protected List<Predicate> preconditions = new ArrayList<Predicate>();
-	protected List<Predicate> effects = new ArrayList<Predicate>();
-	private Solution finalSolution;
-	private Level level;
+public class Move extends ActionPlan {
+	private List<Action> searchResult;
 
-	//Constructor
-	public Move(String id, String value) {
+	public Move(String id, String value, List<Action> searchResult) {
 		super("move", id, value);
-		// TODO Auto-generated constructor stub
+		this.searchResult=searchResult;
 	}
-	
-	/**
-	 * The method activates the move functionality
-	 */
-	public void execute() {
-		SearchableMoveAdapter a = new SearchableMoveAdapter(level, characterTarget);
-		BFS<Position> bfs = new BFS<Position>();
-		Solution sol = bfs.search(a);
 
-		finalSolution.getActions().addAll(sol.getActions());
+	public List<Action> getSearchResult() {
+		return searchResult;
 	}
-	
+
+	public void setSearchResult(List<Action> searchResult) {
+		this.searchResult = searchResult;
+	}
 }

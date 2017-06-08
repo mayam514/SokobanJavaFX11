@@ -1,29 +1,42 @@
 package plannable;
 
-import strips.Clause;
-import strips.Plannable;
-import strips.Predicate;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+
+import adapters.PlannableLevelAdapter;
+import commons.Level;
+import model.data.MyTextLevelLoader;
+import searchLib.Action;
+import strips.ActionPlan;
+import strips.Planner;
+import strips.Strips;
 
 public class Test {
 	public static void main(String[] args) {
-		Predicate p1 = new SokobanPredicate("boxAt", "b1", "5,3");
-		Predicate p2 = new SokobanPredicate("boxAt", "b2", "0,0");
-
-		Predicate p4 = new SokobanPredicate("clearAt", "?", "5,3");
+		MyTextLevelLoader loader = new MyTextLevelLoader();
+		try {
+			Level level = loader.loadLevel(new FileInputStream(new File("resources/level.txt")));
+			
+			PlannableLevelAdapter p = new PlannableLevelAdapter(level);
+			
+			Planner st = new Strips();
+			
+			List<ActionPlan> list = st.plan(p);
+			
+			for(ActionPlan a : list){
+				System.out.println(a);
+				for(Action act : ((Move)a).getSearchResult())
+					System.out.println(act.getName());
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		Clause effect = new Clause(p4);
 		
-		
-		Clause kb = new Clause(p1,p2);
-		System.out.println(kb);
-		kb.update(effect);
-		System.out.println(kb);
-		
-		System.out.println((effect instanceof Clause));
-		System.out.println((p1 instanceof Clause));
-		
-		Plannable plannable = PredicateLevelBuilder.readFile("resources/level.txt");
-		System.out.println(plannable.getKnowledgeBase());
-		System.out.println(plannable.getGoal());
 	}
+	
 }

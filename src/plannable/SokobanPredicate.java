@@ -9,7 +9,7 @@ public class SokobanPredicate extends Predicate {
 	}
 
 	@Override
-	public boolean contradicts(Predicate p){
-		return super.contradicts(p) || (!getId().equals(p.getId()) && getValue().equals(p.getValue()));
+	public boolean isContradicts(Predicate p){
+		return super.isContradicts(p) || (!getId().equals(p.getId()) && getValue().equals(p.getValue()));
 	}
 }
