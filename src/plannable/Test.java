@@ -17,7 +17,7 @@ public class Test {
 	public static void main(String[] args) {
 		MyTextLevelLoader loader = new MyTextLevelLoader();
 		try {
-			Level level = loader.loadLevel(new FileInputStream(new File("resources/level.txt")));
+			Level level = loader.loadLevel(new FileInputStream(new File("resources/level1.txt")));
 			
 			PlannableLevelAdapter p = new PlannableLevelAdapter(level);
 			

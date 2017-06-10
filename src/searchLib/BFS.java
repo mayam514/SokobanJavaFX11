@@ -3,12 +3,15 @@ package searchLib;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class BFS<T> extends CommonSearcher<T> {
 	// Data members
 	private PriorityQueue<State<T>> openList;
-	private HashSet<State<T>> closedList;
+	//private HashSet<State<T>> closedList;
+	private List<State<T>> closedList;
 
 	// Constructor
 	public BFS() {
@@ -30,9 +33,10 @@ public class BFS<T> extends CommonSearcher<T> {
 				for (Action a : map.keySet()) {
 					State<T> sunN = map.get(a);
 					//sunN.setCameFrom(n);
-					if(!closedList.contains(sunN)){
-						if(!openList.contains(sunN)){
+					if(!this.closedList.contains(sunN)){
+						if(!this.openList.contains(sunN)){
 							sunN.setCameFrom(n);
+							sunN.setAction(a);
 							openList.add(sunN);	
 						}
 						else{
@@ -40,6 +44,8 @@ public class BFS<T> extends CommonSearcher<T> {
 								if(state.equals(sunN)){
 									if(sunN.getCost() < state.getCost()){//If the new path is better than the previous one
 										openList.remove(state);
+										sunN.setCameFrom(n);
+										sunN.setAction(a);
 										openList.add(sunN);
 									}
 								}
@@ -63,7 +69,8 @@ public class BFS<T> extends CommonSearcher<T> {
 			}
 		});
 
-		closedList = new HashSet<>();//Create a closed set of all the states we evaluated
+		//closedList = new HashSet<>();//Create a closed set of all the states we evaluated
+		closedList = new LinkedList<State<T>>();
 	}
 
 }

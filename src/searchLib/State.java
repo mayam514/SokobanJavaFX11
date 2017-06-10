@@ -2,7 +2,7 @@ package searchLib;
 
 import java.util.List;
 
-public class State<T> {
+public class State<T> implements Comparable<State<T>> {
 	//Data members
 	private T state;
 	private State<T> cameFrom;
@@ -13,6 +13,9 @@ public class State<T> {
 	//Constructor
 	public State(T state, double cost) {
 		this.state = state;
+		this.cost = cost;
+		this.action = null;
+		this.cameFromActions = null;
 	}
 	
 	//Get and set methods
@@ -71,4 +74,10 @@ public class State<T> {
 		State<T> s = (State<T>)o;
 		return state.equals(s.state);
 	}
+	
+	@Override
+	public int compareTo(State<T> s) {
+		return (int) (this.cost-s.cost);
+	}
+	
 }

@@ -79,16 +79,16 @@ public class SearchablePushAdapter extends CommonSearchable {
 			String actionName = action.getName();
 			int x = currPos.getP_x(), y = currPos.getP_y();
 			if(actionName.equals("move up")){
-				return new Position(x , y-1);
-			}
-			else if(actionName.equals("move down")){
 				return new Position(x , y+1);
 			}
+			else if(actionName.equals("move down")){
+				return new Position(x , y-1);
+			}
 			else if(actionName.equals("move left")){
-				return new Position(x-1 , y);
+				return new Position(x+1 , y);
 			}
 			else if(actionName.equals("move right")){
-				return new Position(x+1 , y);
+				return new Position(x-1 , y);
 			}
 		}
 
