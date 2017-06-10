@@ -1,10 +1,11 @@
 package plannable;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-
 import adapters.PlannableLevelAdapter;
 import commons.Level;
 import model.data.MyTextLevelLoader;
@@ -17,7 +18,8 @@ public class Test {
 	public static void main(String[] args) {
 		MyTextLevelLoader loader = new MyTextLevelLoader();
 		try {
-			Level level = loader.loadLevel(new FileInputStream(new File("resources/level1.txt")));
+			String fileName = "resources/level1.txt";
+			Level level = loader.loadLevel(new FileInputStream(new File(fileName)));
 			
 			PlannableLevelAdapter p = new PlannableLevelAdapter(level);
 			
@@ -25,18 +27,27 @@ public class Test {
 			
 			List<ActionPlan> list = st.plan(p);
 			
+			FileWriter fw = new FileWriter("resources/levelSolution.txt");
+			BufferedWriter bw = new BufferedWriter(fw);
+			
 			for(ActionPlan a : list){
 				System.out.println(a);
-				for(Action act : ((Move)a).getSearchResult())
+				bw.write(a.toString());
+				bw.write(System.lineSeparator());
+				for(Action act : ((Move)a).getSearchResult()){
 					System.out.println(act.getName());
+					bw.write(act.getName());
+					bw.write(System.lineSeparator());
+				}
 			}
-			
+			if (bw != null){
+				bw.close();
+			}
+			if (fw != null){
+				fw.close();
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
-	
 }

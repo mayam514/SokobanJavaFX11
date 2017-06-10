@@ -152,16 +152,16 @@ public class PlannableLevelAdapter implements Plannable{
 			String actionName = action.getName();
 			int x = currPos.getP_x(), y = currPos.getP_y();
 			if(actionName.equals("move up")){
-				return new Position(x , y-1);
-			}
-			else if(actionName.equals("move down")){
 				return new Position(x , y+1);
 			}
+			else if(actionName.equals("move down")){
+				return new Position(x , y-1);
+			}
 			else if(actionName.equals("move left")){
-				return new Position(x-1 , y);
+				return new Position(x+1 , y);
 			}
 			else if(actionName.equals("move right")){
-				return new Position(x+1 , y);
+				return new Position(x-1 , y);
 			}
 		}
 		return null;
@@ -219,27 +219,26 @@ public class PlannableLevelAdapter implements Plannable{
 		BFS<Position> search = new BFS<Position>();
 		Position goalPosition = convertFromStringToPosition(predicate.getValue());
 		Solution solution = null;
-		String boxId;
+		Position initPosition = null;
+		String boxId = null;
 		int index;
 
-		do {
+		while (solution == null){
 			index = random.nextInt(boxes.size());
 			boxId = "b" + index;
 			Box chosenBox = unhandledBoxes.get(boxId);
-			Position initPosition = null;
-
 			if (chosenBox != null) {
 				initPosition = chosenBox.get_position();//The initial position will be the chosen box position
 				SearchablePushAdapter searchablePushAdapter = new SearchablePushAdapter(initPosition, goalPosition, updateBoardByKnowledgeBase(knowledgeBase));
 				solution = search.search(searchablePushAdapter);//Get the shortest path for the box to the final position
 			}
-		} while (solution == null);
+		}
 
 		if (solution != null) {
 			unhandledBoxes.remove(boxId);
 			Move move = new Move(boxId, goalPosition.toString(), solution.getActionsForSolution());//Creates new move according to the path solution
 			move.setPreconditions(new Clause(new Predicate("clear", "?", goalPosition.toString())));
-			Position characterPosition = getCharacterPositionAfterAction(solution.getActionsForSolution().get(solution.getActionsForSolution().size() -1), goalPosition);
+			Position characterPosition = getCharacterPositionAfterAction(solution.getActionsForSolution().get(solution.getActionsForSolution().size()-1), goalPosition);
 			Clause effects = new Clause(new Predicate("boxAt", boxId, goalPosition.toString()), new Predicate("characterAt", "c1", characterPosition.toString()));
 			move.setEffect(effects);
 			move.setDeleteEffects(new Clause(new Predicate("clear", "?", goalPosition.toString())));

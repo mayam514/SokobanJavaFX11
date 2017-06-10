@@ -145,7 +145,7 @@ public class SearchablePushAdapter extends CommonSearchable {
 				//Move left
 				characterTarget = p2;
 				solution = getCharacterShortestPathToBox(currBoxPos, characterPos, characterTarget);
-				if(solution!=null || characterTarget.equals(characterPos)){//If there is a path to the box or the character is already in that position
+				if(solution != null || characterTarget.equals(characterPos)){//If there is a path to the box or the character is already in that position
 					newBoxPos = p1;
 					newState = new State<Position>(newBoxPos, state.getCost() + 1);
 					newState.setCameFromActions(solution.getActionsForSolution());

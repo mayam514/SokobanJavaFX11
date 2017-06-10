@@ -28,12 +28,13 @@ public class Strips implements Planner{
 	public List<ActionPlan> plan(Plannable plannable) {
 		LinkedList<ActionPlan> plan = new LinkedList<>();
 		this.plannable = plannable;
+		Clause knowledgeBase = plannable.getKnowledgeBase();
 		Stack<Predicate> stack = new Stack<>();
 		stack.push(plannable.getGoal());
 		while(!stack.isEmpty()){//While there are predicates that needs to be satisfied
 			Predicate top = stack.peek();
 			if(!(top instanceof ActionPlan)){//Not an action
-				if(!plannable.getKnowledgeBase().isSatisfies(top)){//Not satisfied
+				if(!knowledgeBase.isSatisfies(top)){//Not satisfied
 					if(top instanceof Clause){//Unsatisfied set of predicates (multipart)
 						Clause c = (Clause)top;
 						stack.pop();
@@ -43,7 +44,7 @@ public class Strips implements Planner{
 					}
 					else{//Unsatisfied single predicate 
 						stack.pop();
-						ActionPlan action = plannable.getsatisfyingAction(top, plannable.getKnowledgeBase());
+						ActionPlan action = plannable.getsatisfyingAction(top, knowledgeBase);
 						if(action != null){
 							stack.push(action);
 							stack.push(action.getPreconditions());
@@ -57,12 +58,12 @@ public class Strips implements Planner{
 			else {//Action
 				stack.pop();
 				ActionPlan a = (ActionPlan)top;
-				plannable.getKnowledgeBase().update(a.getEffect());
+				knowledgeBase.update(a.getEffect());
 				for(Predicate delete : a.getDeleteEffects().getPredicates()){
-					for(Predicate p : plannable.getKnowledgeBase().getPredicates()){
+					for(Predicate p : knowledgeBase.getPredicates()){
 						if(delete.equals(p)){
-							plannable.getKnowledgeBase().getPredicates().remove(p);
-							plannable.getKnowledgeBase().updateDescription();
+							knowledgeBase.getPredicates().remove(p);
+							knowledgeBase.updateDescription();
 							break;
 						}
 					}

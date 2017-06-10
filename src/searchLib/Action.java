@@ -5,7 +5,7 @@ import java.util.List;
 public class Action {
 	//Data members
 	private String name;
-	private List<Action> history;
+	//private List<Action> history;
 
 	//Constructor
 	public Action(String name) {
@@ -21,12 +21,12 @@ public class Action {
 		this.name = name;
 	}
 
-	public List<Action> getHistory() {
+	/*public List<Action> getHistory() {
 		return history;
 	}
 	public void setHistory(List<Action> history) {
 		this.history = history;
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {

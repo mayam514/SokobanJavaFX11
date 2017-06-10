@@ -18,9 +18,9 @@ public abstract class CommonSearcher<T> implements Searcher<T> {
 		while (currState.getCameFrom() != null) {
 			actions.addFirst(currState.getAction());
 			if(currState.getAction() != null){
-				if((currState.getAction().getHistory() != null) && (currState.getAction().getHistory().size() != 0)) {
-					for (int i = currState.getAction().getHistory().size()-1 ; i >= 0 ; i--) {
-						actions.addFirst(currState.getAction().getHistory().get(i));
+				if(currState.getCameFromActions() != null) {
+					for (int i = currState.getCameFromActions().size()-1 ; i >= 0 ; i--) {
+						actions.addFirst(currState.getCameFromActions().get(i));
 					}
 				}
 			}
