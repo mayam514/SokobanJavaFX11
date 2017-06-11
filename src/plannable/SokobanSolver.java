@@ -25,10 +25,7 @@ import strips.Strips;
 
 public class SokobanSolver {
 	public static void main(String[] args) {
-	//	MyTextLevelLoader loader = new MyTextLevelLoader();
-		try {
-			//String fileName = "resources/level1.txt";
-			
+		try {			
 			HashMap <String, ILevelLoader> _loadersMap;
 			
 			_loadersMap = new HashMap <String, ILevelLoader>();
@@ -36,8 +33,7 @@ public class SokobanSolver {
 			_loadersMap.put("obj", new MyObjectLevelLoader());
 			_loadersMap.put("xml", new MyXMLLevelLoader());
 			
-			Path p = Paths.get(args[0]);
-			String fileNameWithExtentions = p.getFileName().toString();
+			String fileNameWithExtentions = args[0];
 			String[] fileName = fileNameWithExtentions.split("[.]");
 			String typeOfFile = FilenameUtils.getExtension(args[0]);//Get the .txt/.obj/.xml from the filename that the user typed
 			ILevelLoader loader = _loadersMap.get(typeOfFile);//Get the type of loader the user typed
@@ -50,7 +46,6 @@ public class SokobanSolver {
 			List<ActionPlan> list = st.plan(pp);
 			
 			FileWriter fw = new FileWriter("resources/levelSolution.txt");
-			//FileWriter fw = new FileWriter(args[1]);
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			for(ActionPlan a : list){
